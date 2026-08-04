@@ -2,7 +2,6 @@ import { useState } from 'react'
 import './App.css'
 
 const STORE_URL = '#pricing'
-const DEMO_URL = '#demo'
 const CONTACT_EMAIL = 'usefirstlook@gmail.com'
 
 const features = [
@@ -38,6 +37,50 @@ const features = [
   },
 ]
 
+
+const showcaseSlides = [
+  {
+    images: ['/showcase/widget-fresh-listings.jpeg'],
+    title: 'Your full sourcing workflow in one view',
+    text: 'Build deal feeds, apply mobile alert rules, filter fresh listings, and act on new opportunities without leaving Marketplace.',
+    type: 'desktop',
+  },
+  {
+    images: ['/showcase/saved-deal-feeds.jpeg'],
+    title: 'Manage every saved deal feed',
+    text: 'See recent checks, listing counts, refresh windows, radius settings, mobile rules, and active status from one organized panel.',
+    type: 'desktop',
+  },
+  {
+    images: ['/showcase/protected-scan-tab.jpeg'],
+    title: 'A protected tab checks your feeds',
+    text: 'FirstLook quietly rotates through saved deal feeds while keeping the scan page locked so results stay accurate.',
+    type: 'desktop',
+  },
+  {
+    images: [
+      '/showcase/mobile-banner-alert.jpeg',
+      '/showcase/mobile-detailed-alerts.jpeg',
+      '/showcase/telegram-album.jpeg',
+    ],
+    title: 'Fresh listings reach you wherever you are',
+    text: 'See instant banners, detailed listing alerts, and visual Telegram albums so you can decide what deserves your attention before opening Marketplace.',
+    type: 'phone-grid',
+  },
+  {
+    images: ['/showcase/search-results-sent-badge.jpeg'],
+    title: 'Know what is fresh at a glance',
+    text: 'Posting-age badges show which listings are new, while sent badges make it clear which opportunities already reached your phone.',
+    type: 'desktop',
+  },
+  {
+    images: ['/showcase/marketplace-age-badges.jpeg'],
+    title: 'Marketplace, with better context',
+    text: 'Age estimates appear directly on listing cards so the freshest opportunities stand out while you browse.',
+    type: 'desktop',
+  },
+]
+
 const faqs = [
   {
     q: 'Does FirstLook automatically message sellers?',
@@ -63,7 +106,7 @@ const faqs = [
 
 function App() {
   const [openFaq, setOpenFaq] = useState<number | null>(0)
-  const [demoOpen, setDemoOpen] = useState(false)
+  const [activeShowcase, setActiveShowcase] = useState(0)
 
   const mailHref = `mailto:${CONTACT_EMAIL}?subject=FirstLook%20Early%20Access`
 
@@ -94,7 +137,7 @@ function App() {
             </p>
             <div className="hero-actions">
               <a className="button button-primary" href={STORE_URL}>Get early access <span>→</span></a>
-              <button className="button button-ghost" onClick={() => setDemoOpen(true)}>Watch demo <span>▶</span></button>
+              <a className="button button-ghost" href="#demo">See it in action <span>↓</span></a>
             </div>
             <div className="hero-proof">
               <span>Chrome extension</span>
@@ -197,21 +240,68 @@ function App() {
           </div>
         </section>
 
-        <section id="demo" className="section demo-section">
-          <div className="container demo-grid">
-            <div className="demo-copy">
+        <section id="demo" className="section showcase-section">
+          <div className="container">
+            <div className="section-heading centered showcase-heading">
               <div className="eyebrow light">See FirstLook in action</div>
-              <h2>Spend less time refreshing. Spend more time sourcing.</h2>
-              <p>Save the searches you already use, let FirstLook monitor them, and focus your attention on the newest opportunities.</p>
-              <button className="text-button" onClick={() => setDemoOpen(true)}>Watch the 60-second walkthrough <span>→</span></button>
+              <h2>The workflow, from Marketplace to your phone.</h2>
+              <p>Real screenshots from FirstLook, not a mockup. Click through the product before requesting access.</p>
             </div>
-            <button className="demo-placeholder" onClick={() => setDemoOpen(true)} aria-label="Play FirstLook demo">
-              <div className="demo-shine" />
-              <img src="/firstlook-logo.png" alt="" />
-              <span className="play-button">▶</span>
-              <strong>Product demo coming next</strong>
-              <small>Drop in your screen recording later</small>
-            </button>
+
+            <div className="showcase-shell">
+              <button
+                className="showcase-arrow showcase-arrow-left"
+                type="button"
+                aria-label="Previous screenshot"
+                onClick={() => setActiveShowcase((activeShowcase - 1 + showcaseSlides.length) % showcaseSlides.length)}
+              >
+                ‹
+              </button>
+
+              <div className="showcase-stage">
+                <div className={`showcase-media ${showcaseSlides[activeShowcase].type}`}>
+                  {showcaseSlides[activeShowcase].images.map((image, imageIndex) => (
+                    <img
+                      key={image}
+                      src={image}
+                      alt={imageIndex === 0 ? showcaseSlides[activeShowcase].title : `${showcaseSlides[activeShowcase].title} view ${imageIndex + 1}`}
+                    />
+                  ))}
+                </div>
+                <div className="showcase-caption">
+                  <span>{String(activeShowcase + 1).padStart(2, '0')} / {String(showcaseSlides.length).padStart(2, '0')}</span>
+                  <div>
+                    <h3>{showcaseSlides[activeShowcase].title}</h3>
+                    <p>{showcaseSlides[activeShowcase].text}</p>
+                  </div>
+                </div>
+              </div>
+
+              <button
+                className="showcase-arrow showcase-arrow-right"
+                type="button"
+                aria-label="Next screenshot"
+                onClick={() => setActiveShowcase((activeShowcase + 1) % showcaseSlides.length)}
+              >
+                ›
+              </button>
+            </div>
+
+            <div className="showcase-thumbnails" aria-label="Choose a FirstLook screenshot">
+              {showcaseSlides.map((slide, index) => (
+                <button
+                  type="button"
+                  key={slide.title}
+                  className={activeShowcase === index ? 'active' : ''}
+                  onClick={() => setActiveShowcase(index)}
+                  aria-label={`Show screenshot: ${slide.title}`}
+                  aria-current={activeShowcase === index ? 'true' : undefined}
+                >
+                  <img src={slide.images[0]} alt="" />
+                  <span>{slide.title}</span>
+                </button>
+              ))}
+            </div>
           </div>
         </section>
 
@@ -315,20 +405,6 @@ function App() {
         </div>
         <div className="container disclaimer">FirstLook is not affiliated with, endorsed by, or sponsored by Meta, Facebook, or Facebook Marketplace.</div>
       </footer>
-
-      {demoOpen && (
-        <div className="modal-backdrop" role="dialog" aria-modal="true" aria-label="FirstLook demo" onClick={() => setDemoOpen(false)}>
-          <div className="modal" onClick={(event) => event.stopPropagation()}>
-            <button className="modal-close" onClick={() => setDemoOpen(false)} aria-label="Close demo">×</button>
-            <div className="modal-placeholder">
-              <img src="/firstlook-logo.png" alt="" />
-              <h3>Add your FirstLook demo here</h3>
-              <p>Later, replace this placeholder with a YouTube, Vimeo, or local MP4 embed.</p>
-              <a className="button button-primary" href={DEMO_URL} onClick={(event) => event.preventDefault()}>Demo placeholder</a>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   )
 }
