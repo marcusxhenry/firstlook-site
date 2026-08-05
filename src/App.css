@@ -384,3 +384,45 @@ footer { background: #06101f; color: #9cabc0; padding: 58px 0 28px; }
     border-radius: 16px;
   }
 }
+
+/* Chrome Web Store availability */
+.store-availability {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 18px;
+  padding: 12px 16px;
+  border: 1px solid #d8e6fb;
+  border-radius: 16px;
+  background: rgba(247, 251, 255, .92);
+  box-shadow: 0 10px 28px rgba(15, 82, 186, .08);
+  text-align: left;
+}
+.store-check {
+  width: 28px;
+  height: 28px;
+  flex: 0 0 28px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: #e7f6ed;
+  color: #16813d;
+  font-weight: 900;
+}
+.store-availability strong {
+  display: block;
+  color: var(--navy);
+  font-size: 13px;
+}
+.store-availability small {
+  display: block;
+  margin-top: 2px;
+  color: #667085;
+  font-size: 12px;
+}
+@media (max-width: 900px) {
+  .store-availability { margin-left: auto; margin-right: auto; }
+}
+@media (max-width: 640px) {
+  .store-availability { width: 100%; justify-content: center; }
+}

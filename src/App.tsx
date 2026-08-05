@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import './App.css'
 
-const STORE_URL = '#pricing'
+const STORE_URL = 'https://chromewebstore.google.com/detail/firstlook/lnogkggoljfhfmkdicpjmedjchfmilnn'
 const CONTACT_EMAIL = 'usefirstlook@gmail.com'
 
 const features = [
@@ -108,8 +108,6 @@ function App() {
   const [openFaq, setOpenFaq] = useState<number | null>(0)
   const [activeShowcase, setActiveShowcase] = useState(0)
 
-  const mailHref = `mailto:${CONTACT_EMAIL}?subject=FirstLook%20Early%20Access`
-
   return (
     <div className="site-shell">
       <header className="nav-wrap">
@@ -123,24 +121,31 @@ function App() {
             <a href="#features">Features</a>
             <a href="#pricing">Pricing</a>
           </div>
-          <a className="button button-small button-dark" href={STORE_URL}>Get FirstLook</a>
+          <a className="button button-small button-dark" href={STORE_URL} target="_blank" rel="noreferrer">Add to Chrome</a>
         </nav>
       </header>
 
       <main id="top">
         <section className="hero container">
           <div className="hero-copy">
-            <div className="eyebrow"><span className="status-dot" /> Early access for Marketplace resellers</div>
-            <h1>Fresh Marketplace deals, <span>before the crowd.</span></h1>
+            <div className="eyebrow"><span className="status-dot" /> Available now on the Chrome Web Store</div>
+            <h1>Find fresh Marketplace deals <span>before everyone else.</span></h1>
             <p className="hero-lede">
               FirstLook turns Facebook Marketplace searches and categories into live deal feeds, then sends mobile alerts when fresh listings match what you’re hunting for.
             </p>
             <div className="hero-actions">
-              <a className="button button-primary" href={STORE_URL}>Get early access <span>→</span></a>
+              <a className="button button-primary" href={STORE_URL} target="_blank" rel="noreferrer">Try FirstLook free <span>→</span></a>
               <a className="button button-ghost" href="#demo">See it in action <span>↓</span></a>
             </div>
+            <div className="store-availability">
+              <span className="store-check">✓</span>
+              <div>
+                <strong>Available on the Chrome Web Store</strong>
+                <small>5-day free trial · No credit card required</small>
+              </div>
+            </div>
             <div className="hero-proof">
-              <span>Chrome extension</span>
+              <span>Installs in under a minute</span>
               <span>Telegram alerts</span>
               <span>Built for resellers</span>
             </div>
@@ -245,7 +250,7 @@ function App() {
             <div className="section-heading centered showcase-heading">
               <div className="eyebrow light">See FirstLook in action</div>
               <h2>The workflow, from Marketplace to your phone.</h2>
-              <p>Real screenshots from FirstLook, not a mockup. Click through the product before requesting access.</p>
+              <p>Real screenshots from FirstLook, not a mockup. See how it works before you install.</p>
             </div>
 
             <div className="showcase-shell">
@@ -341,28 +346,27 @@ function App() {
 
         <section id="pricing" className="section pricing-section container">
           <div className="section-heading centered">
-            <div className="eyebrow light">Founding access</div>
-            <h2>Get in early. Keep the founding price.</h2>
-            <p>One straightforward plan while FirstLook is in early access.</p>
+            <div className="eyebrow light">Try FirstLook</div>
+            <h2>Start free. Upgrade when it proves useful.</h2>
+            <p>Try every feature free for 5 days. No credit card required.</p>
           </div>
           <div className="pricing-card">
             <div className="pricing-top">
               <div>
-                <span className="plan-label">FirstLook Early Access</span>
+                <span className="plan-label">FirstLook</span>
                 <div className="price"><strong>$9</strong><span>/month</span></div>
               </div>
               <span className="founding-badge">FOUNDING PRICE</span>
             </div>
             <ul>
-              <li>Unlimited saved deal feeds during early access</li>
+              <li>Unlimited saved deal feeds</li>
               <li>Fresh Listings feed and on-page widget</li>
               <li>Telegram mobile alerts</li>
               <li>Title keyword and price alert rules</li>
-              <li>Direct early-user feedback channel</li>
+              <li>5-day free trial with no credit card</li>
             </ul>
-            <a className="button button-primary button-full" href={mailHref} 
-            >Request early access <span>→</span></a>
-            <small>Cancel anytime. Chrome Web Store installation required.</small>
+            <a className="button button-primary button-full" href={STORE_URL} target="_blank" rel="noreferrer">Try FirstLook free <span>→</span></a>
+            <small>5-day free trial · No credit card required · Cancel anytime after upgrading.</small>
           </div>
         </section>
 
@@ -388,7 +392,7 @@ function App() {
               <h2>See the listing. Make the move.</h2>
               <p>Build your first Marketplace deal feed with FirstLook.</p>
             </div>
-            <a className="button button-light" href={STORE_URL}>Get FirstLook <span>→</span></a>
+            <a className="button button-light" href={STORE_URL} target="_blank" rel="noreferrer">Add to Chrome <span>→</span></a>
           </div>
         </section>
       </main>
@@ -398,6 +402,7 @@ function App() {
           <a className="brand footer-brand" href="#top"><img src="/firstlook-logo.png" alt="" /><span>FirstLook</span></a>
           <p>Fresh Marketplace deals before the crowd.</p>
           <div className="footer-links">
+            <a href={STORE_URL} target="_blank" rel="noreferrer">Chrome Web Store</a>
             <a href="/privacy.html">Privacy</a>
             <a href="/terms.html">Terms</a>
             <a href={`mailto:${CONTACT_EMAIL}`}>Support</a>
